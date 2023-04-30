@@ -1,18 +1,64 @@
 export default function KeysNumInit(TextHolder) {
-  function backspace() {
-    TextHolder.value = TextHolder.value.slice(0, -1);
+  function insert(text) {
+    const cursorPos = TextHolder.selectionStart;
+    const inputValue = TextHolder.value;
+    const selectedText = TextHolder.value.slice(cursorPos, TextHolder.selectionEnd);
+    if (selectedText.length > 0) {
+      const valueBeforeSelection = inputValue.slice(0, cursorPos);
+      const valueAfterSelection = inputValue.slice(TextHolder.selectionEnd);
+      TextHolder.value = valueBeforeSelection + text + valueAfterSelection;
+    } else {
+      const valueBeforeCursor = inputValue.slice(0, cursorPos - 1);
+      const valueAfterCursor = inputValue.slice(cursorPos);
+      TextHolder.value = valueBeforeCursor + text + valueAfterCursor;
+    }
+    TextHolder.setSelectionRange(cursorPos + 1, cursorPos + 1);
   }
-  function tab(){
-    TextHolder.value += "\t";
+  function backspace() {
+    const cursorPos = TextHolder.selectionStart;
+    const inputValue = TextHolder.value;
+    const selectedText = TextHolder.value.slice(cursorPos, TextHolder.selectionEnd);
+    if (selectedText.length > 0) {
+      const valueBeforeSelection = inputValue.slice(0, cursorPos);
+      const valueAfterSelection = inputValue.slice(TextHolder.selectionEnd);
+      TextHolder.value = valueBeforeSelection + valueAfterSelection;
+    } else {
+      const valueBeforeCursor = inputValue.slice(0, cursorPos - 1);
+      const valueAfterCursor = inputValue.slice(cursorPos);
+      TextHolder.value = valueBeforeCursor + valueAfterCursor;
+      TextHolder.setSelectionRange(cursorPos - 1, cursorPos - 1);
+    }
+  }
+  function tab() {
+    insert("\t")
   }
   function del() {
-    
+    const cursorPos = TextHolder.selectionStart;
+    const inputValue = TextHolder.value;
+
+    const selectedText = TextHolder.value.slice(cursorPos, TextHolder.selectionEnd);
+    if (selectedText.length > 0) {
+      const valueBeforeSelection = inputValue.slice(0, cursorPos);
+      const valueAfterSelection = inputValue.slice(TextHolder.selectionEnd);
+      TextHolder.value = valueBeforeSelection + valueAfterSelection;
+    } else {
+      const valueBeforeCursor = inputValue.slice(0, cursorPos);
+      const valueAfterCursor = inputValue.slice(cursorPos+1);
+      TextHolder.value = valueBeforeCursor + valueAfterCursor;
+      TextHolder.setSelectionRange(cursorPos, cursorPos);
+    }
   }
   function caps() {
 
   }
   function enter() {
-    TextHolder.value += "\n";
+    insert("\n")
+  }
+  function shift() {
+    
+  }
+  function arrowUp() {
+
   }
 
 
@@ -59,6 +105,20 @@ export default function KeysNumInit(TextHolder) {
     [":", ";", "6%", "Semicolon", undefined],
     ["\"", "'", "6%", "Quote", undefined],
     ["Enter", "Enter", "12%", "Enter", enter],
+    ["Shift", "Shift", "12%", "ShiftLeft", shift],
+    ["|", "\\", "6%", "IntlBackslash", undefined],
+    ["Z", "z", "6%", "KeyZ", undefined],
+    ["X", "x", "6%", "KeyX", undefined],
+    ["C", "c", "6%", "KeyC", undefined],
+    ["V", "v", "6%", "KeyV", undefined],
+    ["B", "b", "6%", "KeyB", undefined],
+    ["N", "n", "6%", "KeyN", undefined],
+    ["M", "m", "6%", "KeyM", undefined],
+    ["<", ",", "6%", "Comma", undefined],
+    [">", ".", "6%", "Period", undefined],
+    ["?", "/", "6%", "Slash", undefined],
+    ["↑", "↑", "6%", "ArrowUp", arrowUp],
+    ["Shift", "Shift", "6%", "ShiftRight", shift],
   ];
 
   return KeysNum;

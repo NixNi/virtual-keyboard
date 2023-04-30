@@ -41,3 +41,6 @@ document.addEventListener("keyup", (e) => {
   }
   Keys[e.code]?.getElement().classList.remove("active");
 });
+
+
+TextHolder.addEventListener("input", e=>console.log(e))

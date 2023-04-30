@@ -1,3 +1,20 @@
+function insert(TextHolder, text) {
+  const cursorPos = TextHolder.selectionStart;
+  const inputValue = TextHolder.value;
+  const selectedText = TextHolder.value.slice(cursorPos, TextHolder.selectionEnd);
+  if (selectedText.length > 0) {
+    const valueBeforeSelection = inputValue.slice(0, cursorPos);
+    const valueAfterSelection = inputValue.slice(TextHolder.selectionEnd);
+    TextHolder.value = valueBeforeSelection + text + valueAfterSelection;
+  } else {
+    const valueBeforeCursor = inputValue.slice(0, cursorPos);
+    const valueAfterCursor = inputValue.slice(cursorPos);
+    TextHolder.value = valueBeforeCursor + text + valueAfterCursor;
+  }
+  TextHolder.setSelectionRange(cursorPos + 1, cursorPos + 1);
+}
+
+
 export default class Key {
   constructor(TextHolder, Upper, Down, width, code, fun, control = 0) {
     this.TextHolder = TextHolder;
@@ -11,17 +28,21 @@ export default class Key {
     this.element.style.width = width;
     this.element.innerText = Down;
     this.element.addEventListener("mousedown", () => {
-      let evt = new KeyboardEvent('keydown', { 'code': code, 'which': code });
+      TextHolder.focus()
+      let evt = new KeyboardEvent('keydown', { 'code': code});
       document.dispatchEvent(evt);
-      if (!fun) TextHolder.value = TextHolder.value + Down;
+      let evtInp = new InputEvent({inputType: "insertText", data: Upper })
+      TextHolder.dispatchEvent(evtInp)
+      if (!fun) insert(TextHolder, Down)
       else fun();
     });
     this.element.addEventListener("mouseup", () => {
-      let evt = new KeyboardEvent('keyup', { 'code': code, 'which': code });
+      TextHolder.focus()
+      let evt = new KeyboardEvent('keyup', { 'code': code });
       document.dispatchEvent(evt);
     });
     this.element.addEventListener("mouseleave", () => {
-      let evt = new KeyboardEvent('keyup', { 'code': code, 'which': code });
+      let evt = new KeyboardEvent('keyup', { 'code': code});
       document.dispatchEvent(evt);
     });
   }
