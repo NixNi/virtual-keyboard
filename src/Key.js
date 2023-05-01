@@ -124,6 +124,7 @@ class Keyboard {
     for (let i of this.Keys) i.setControl();
   }
   changeLanguage() {
+    localStorage.setItem("language", localStorage.getItem("language") === "0" ? "1" : "0");
     for (let i of this.Keys) i.changeLanguage();
   }
   initEventListeners() {

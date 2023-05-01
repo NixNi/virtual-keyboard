@@ -18,3 +18,4 @@ const KeysNum = KeysNumInit(TextHolder);
 let kb = new Keyboard(KeysNum, TextHolder);
 kb.initEventListeners();
 KeyboardElem.append(...kb.getElements());
+if (localStorage.getItem("language")==="1") kb.changeLanguage()
