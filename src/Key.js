@@ -34,12 +34,12 @@ class Key {
       let evt = new KeyboardEvent('keydown', { 'code': code });
       document.dispatchEvent(evt);
       if (!fun) {
-        if (Keyboard.control == 0) insert(TextHolder, Down);
-        if (Keyboard.control == 1) insert(TextHolder, Upper);
-        if (Keyboard.control == 2) insert(TextHolder, !sh ? Upper : Down);
-        if (Keyboard.control == 3) insert(TextHolder, sh ? Upper : Down);
+        if (Keyboard.control == 0) insert(this.TextHolder, this.Down);
+        if (Keyboard.control == 1) insert(this.TextHolder, this.Upper);
+        if (Keyboard.control == 2) insert(this.TextHolder, !sh ? this.Upper : this.Down);
+        if (Keyboard.control == 3) insert(this.TextHolder, sh ? this.Upper : this.Down);
       }
-      else fun(this.Keyboard.control, this.Keyboard.setControl.bind(Keyboard));
+      else fun(this.Keyboard.control, this.Keyboard.setControl.bind(Keyboard), this.Keyboard.changeLanguage.bind(Keyboard));
     });
     this.element.addEventListener("mouseup", () => {
       TextHolder.focus();
@@ -55,13 +55,16 @@ class Key {
     return this.element;
   }
   changeLanguage() {
-    let i = this.Down;
-    this.Down = this.aDown;
-    this.aDown = i;
-    i = this.Upper;
-    this.Upper = this.aUpper;
-    this.aUpper = i;
-    this.setControl();
+    if (this.aDown) {
+      let i = this.Down;
+      this.Down = this.aDown;
+      this.aDown = i;
+      i = this.Upper;
+      this.Upper = this.aUpper;
+      this.aUpper = i;
+      this.setControl();
+    }
+
   }
   setControl() {
     if (this.Keyboard.control == 0) this.element.innerText = this.Down;
@@ -93,12 +96,16 @@ class Keyboard {
     this.control = num;
     for (let i of this.Keys) i.setControl();
   }
+  changeLanguage() {
+    for (let i of this.Keys) i.changeLanguage();
+  }
   initEventListeners() {
     document.addEventListener("keydown", (e) => {
       if ((e.code == "ShiftLeft" || e.code == "ShiftRight") && !e.getModifierState('CapsLock') && e.isTrusted) this.setControl(1);
       if (e.code == "CapsLock" && e.getModifierState('CapsLock') && e.isTrusted) this.setControl(2);
       if (e.code == "CapsLock" && !e.getModifierState('CapsLock') && e.isTrusted) this.setControl(0);
       if ((e.code == "ShiftLeft" || e.code == "ShiftRight") && e.getModifierState('CapsLock') && e.isTrusted) this.setControl(3);
+      if ((e.code == "ShiftLeft" && e.altKey ) && e.isTrusted) this.changeLanguage();
       this.KeysI[e.code]?.getElement().classList.add("active");
     });
     document.addEventListener("keyup", (e) => {
@@ -109,6 +116,7 @@ class Keyboard {
         || e.code == "CapsLock" && (this.control == 2 || this.control == 3)))
         this.KeysI[e.code]?.getElement().classList.remove("active");
     });
+    
   }
 }
 
