@@ -9,11 +9,12 @@ body.append(KeyboardElem);
 
 const TextHolder = document.createElement('textarea');
 TextHolder.classList.add("textholder");
+TextHolder.placeholder = `Поменять язык с помощью физической клавиатуры Alt + Shift
+Поменять язык с помощью вирутальной клавиатуры на клавишу Win`;
 body.append(TextHolder);
 
 const KeysNum = KeysNumInit(TextHolder);
 
 let kb = new Keyboard(KeysNum, TextHolder);
 kb.initEventListeners();
-console.log(kb.getElementsI())
 KeyboardElem.append(...kb.getElements());

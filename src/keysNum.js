@@ -8,7 +8,7 @@ export default function KeysNumInit(TextHolder) {
       const valueAfterSelection = inputValue.slice(TextHolder.selectionEnd);
       TextHolder.value = valueBeforeSelection + text + valueAfterSelection;
     } else {
-      const valueBeforeCursor = inputValue.slice(0, cursorPos - 1);
+      const valueBeforeCursor = inputValue.slice(0, cursorPos);
       const valueAfterCursor = inputValue.slice(cursorPos);
       TextHolder.value = valueBeforeCursor + text + valueAfterCursor;
     }

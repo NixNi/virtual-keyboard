@@ -10,17 +10,25 @@
   display: flex;
   flex-wrap: wrap;
   background: #b9d4af;
-  gap: 15px;
-  height: 60vh;
+  gap: 0.6vw;
+  height: 55vh;
   position: fixed;
   bottom: 0;
-  justify-content: space-between;
+  justify-content: space-evenly;
+  align-items: center;
 }
 
 .textholder {
   width: 100%;
   top: 0;
-  height: 40vh;
+  height: 45vh;
+  color: #50624a;
+  font-size: 2em;
+  resize: none;
+}
+
+.textholder:focus{
+    outline: none;
 }
 
 .key {
@@ -28,8 +36,23 @@
   background: #4d5d60;
   color: white;
   text-align: center;
+  vertical-align: baseline;
   align-items: center;
-  font-size: 3.5em;
+  font-size: 2em;
+  user-select: none;      
+  transition: all 0.1s;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  position: relative;
+}
+
+.keyTextAdded {
+  position: absolute;
+  font-size: 1em;
+  top: 5%;
+  left: 10%;
+  color: lightgray;
 }
 
 .key.active {
