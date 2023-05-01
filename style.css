@@ -27,8 +27,8 @@
   resize: none;
 }
 
-.textholder:focus{
-    outline: none;
+.textholder:focus {
+  outline: none;
 }
 
 .key {
@@ -39,7 +39,7 @@
   vertical-align: baseline;
   align-items: center;
   font-size: 2em;
-  user-select: none;      
+  user-select: none;
   transition: all 0.1s;
   border-radius: 5px;
   display: flex;
@@ -57,4 +57,20 @@
 
 .key.active {
   background: #6ea7e9;
+}
+
+@media (max-width: 1310px) {
+  .key {
+    font-size: 1em;
+    height: 6vh;
+  }
+  .keyTextAdded {
+    font-size: 0.5em;
+  }
+  .keyboard {
+    height: 35vh;
+  }
+  .textholder {
+    height: 65vh;
+  }
 }
