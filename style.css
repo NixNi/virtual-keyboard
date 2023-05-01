@@ -1,0 +1,37 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
+.keyboard {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  background: #b9d4af;
+  gap: 15px;
+  height: 60vh;
+  position: fixed;
+  bottom: 0;
+  justify-content: space-between;
+}
+
+.textholder {
+  width: 100%;
+  top: 0;
+  height: 40vh;
+}
+
+.key {
+  height: 10vh;
+  background: #4d5d60;
+  color: white;
+  text-align: center;
+  align-items: center;
+  font-size: 3.5em;
+}
+
+.key.active {
+  background: #6ea7e9;
+}
