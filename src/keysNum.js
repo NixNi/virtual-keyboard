@@ -30,7 +30,7 @@ export default function KeysNumInit(TextHolder) {
     }
   }
   function tab() {
-    insert("\t")
+    insert("\t");
   }
   function del() {
     const cursorPos = TextHolder.selectionStart;
@@ -43,7 +43,7 @@ export default function KeysNumInit(TextHolder) {
       TextHolder.value = valueBeforeSelection + valueAfterSelection;
     } else {
       const valueBeforeCursor = inputValue.slice(0, cursorPos);
-      const valueAfterCursor = inputValue.slice(cursorPos+1);
+      const valueAfterCursor = inputValue.slice(cursorPos + 1);
       TextHolder.value = valueBeforeCursor + valueAfterCursor;
       TextHolder.setSelectionRange(cursorPos, cursorPos);
     }
@@ -52,15 +52,35 @@ export default function KeysNumInit(TextHolder) {
 
   }
   function enter() {
-    insert("\n")
+    insert("\n");
   }
   function shift() {
-    
+
+  }
+
+  function ctrl() {
+
+  }
+  function meta() {
+
+  }
+  function alt() {
+
   }
   function arrowUp() {
 
   }
+  function arrowDown() {
 
+  }
+  function arrowLeft() {
+    const cursorPos = TextHolder.selectionStart;
+    TextHolder.setSelectionRange(cursorPos-1, cursorPos-1)
+  }
+  function arrowRight() {
+    const cursorPos = TextHolder.selectionStart;
+    TextHolder.setSelectionRange(cursorPos+1, cursorPos+1)
+  }
 
   const KeysNum = [
     ["~", "`", "6%", "Backquote", undefined],
@@ -119,6 +139,15 @@ export default function KeysNumInit(TextHolder) {
     ["?", "/", "6%", "Slash", undefined],
     ["↑", "↑", "6%", "ArrowUp", arrowUp],
     ["Shift", "Shift", "6%", "ShiftRight", shift],
+    ["Ctrl", "Ctrl", "9%", "ControlLeft", ctrl],
+    ["Win", "Win", "6%", "MetaLeft", meta],
+    ["Alt", "Alt", "6%", "AltLeft", alt],
+    [" ", " ", "40%", "Space", undefined],
+    ["Alt", "Alt", "6%", "AltRight", alt],
+    ["Ctrl", "Ctrl", "9%", "ControlRight", ctrl],
+    ["←", "←", "6%", "ArrowLeft", arrowLeft],
+    ["↓", "↓", "6%", "ArrowDown", arrowDown],
+    ["→", "→", "6%", "ArrowRight", arrowRight],
   ];
 
   return KeysNum;
