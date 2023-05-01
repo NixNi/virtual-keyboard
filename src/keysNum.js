@@ -68,10 +68,20 @@ export default function KeysNumInit(TextHolder) {
 
   }
   function arrowUp() {
-
+    const cursorPos = TextHolder.selectionStart;
+    const currentLineStartPosition = TextHolder.value.lastIndexOf('\n', cursorPos - 1);
+    const previousLineStartPosition = TextHolder.value.lastIndexOf('\n', currentLineStartPosition - 1);
+    const newCursorPos = Math.min(currentLineStartPosition, previousLineStartPosition + cursorPos - currentLineStartPosition ) 
+    TextHolder.setSelectionRange(newCursorPos, newCursorPos);
   }
   function arrowDown() {
-
+    const cursorPos = TextHolder.selectionStart;
+    const currentLineStartPosition = TextHolder.value.lastIndexOf('\n', cursorPos - 1);
+    const currentLineEndPosition = TextHolder.value.indexOf('\n', cursorPos);
+    const nextLineStartPosition = currentLineEndPosition+1
+    const nextLineEndPosition = TextHolder.value.indexOf('\n', nextLineStartPosition) != -1 ? TextHolder.value.indexOf('\n', nextLineStartPosition) : TextHolder.value.length
+    const newCursorPos = Math.min(nextLineEndPosition, nextLineStartPosition + cursorPos - currentLineStartPosition - 1);
+    TextHolder.setSelectionRange(newCursorPos, newCursorPos);
   }
   function arrowLeft() {
     const cursorPos = TextHolder.selectionStart;
